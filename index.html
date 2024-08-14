@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Cards Page</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff; /* Light blue background */
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid #4a90e2; /* Blue accent color */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .card h3 {
+            color: #2c3e50; /* Dark blue text for titles */
+            margin-top: 0;
+        }
+        .card p {
+            color: #34495e; /* Darker gray for text */
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="cardContainer"></div>
+
+    <script>
+        const cardContainer = document.getElementById('cardContainer');
+
+        const cardDetails = [
+            { title: "Nature", content: "Explore the beauty of national parks and wildlife reserves.", image: "Nature.avif" },
+            { title: "Technology", content: "Discover the latest advancements in AI and robotics.", image: "Technology.jpg" },
+            { title: "Art", content: "Learn about famous painters and their masterpieces.", image: "art.avif" },
+            { title: "Space", content: "Journey through the cosmos and learn about distant galaxies.", image: "space.jpeg" },
+            { title: "History", content: "Uncover ancient civilizations and their lasting impact.", image: "history.jpeg" },
+            { title: "Music", content: "Experience different genres and iconic musicians.", image: "music.jpg" },
+            { title: "Sports", content: "Get inspired by legendary athletes and epic competitions.", image: "sports.avif" },
+            { title: "Food", content: "Explore culinary traditions from around the world.", image: "food.jpeg" },
+            { title: "Literature", content: "Dive into classic novels and contemporary bestsellers.", image: "literature.jpg" },
+            { title: "Science", content: "Understand groundbreaking discoveries in various scientific fields.", image: "science.avif" },
+            
+        ];
+
+        cardDetails.forEach((detail, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>${detail.title}</h3>
+                <p>Click for details</p>
+            `;
+            card.onclick = () => openDetailsPage(detail.title, detail.content, detail.image);
+            cardContainer.appendChild(card);
+        });
+
+        function openDetailsPage(title, content, imageUrl) {
+            const detailsPage = window.open('', '_blank');
+            detailsPage.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${title} Details</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            color: #333;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }
+                        h1 {
+                            color: #2c3e50;
+                        }
+                        img {
+                            max-width: 100%;
+                            height: auto;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${title}</h1>
+                    <img src="${imageUrl}" alt="${title}">
+                    <p>${content}</p>
+                </body>
+                </html>
+            `);
+            detailsPage.document.close();
+        }
+    </script>
+</body>
+</html>
